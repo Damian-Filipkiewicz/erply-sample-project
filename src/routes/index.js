@@ -1,6 +1,7 @@
 const routes = {
   base: '/',
-  login: '/login'
+  login: '/login',
+  productList: '/product-list'
 }
 
 export default routes

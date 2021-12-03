@@ -10,7 +10,7 @@
   }
 
   &__box {
-    border-radius: 15px;
+    border-radius: $default-border-radius;
     background: $primary;
     color: $text-primary;
     padding: 30px;

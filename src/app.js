@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './pages/Login';
 import routes from './routes/index.js'
+import { ProductList } from './pages/ProductList';
 
 const App = () => {
 
@@ -8,6 +9,7 @@ const App = () => {
     <BrowserRouter basename="/">
         <Routes>
           <Route index path={routes.base} element={<Login/>}/>
+          <Route index path={routes.productList} element={<ProductList/>}/>
         </Routes>
     </BrowserRouter>
   );
