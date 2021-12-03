@@ -11,12 +11,12 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background: $background;
+  background: $primary;
+  overflow-x: hidden;
 }
 
 button, input {
   border: 2px solid $text-primary;
-  border-radius: 8px;
   padding: 5px 8px;
   transition: .15s all ease-in-out;
 }
@@ -25,6 +25,7 @@ input {
   color: $text-primary;
   background: transparent;
   margin-bottom: 20px;
+
 
   &:focus {
     border-color: $focus;
@@ -41,5 +42,22 @@ button {
     color: $text-primary;
     background-color: $focus;
     border-color: $focus;
+  }
+}
+
+.empty-list-info {
+  height: 100%;
+
+  td {
+    text-align: center;
+    line-height: 10;
+  }
+}
+
+td, th {
+  line-height: 2;
+
+  &:first-child {
+    padding-left: 10px;
   }
 }

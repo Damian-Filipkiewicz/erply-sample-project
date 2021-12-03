@@ -1,34 +1,58 @@
-.productList {
-  height: 100vh;
+.list {
   color: $text-primary;
-  &__container {
-    height: calc(100% - 120px);
+  height: 100vh;
+
+  &__wrapper {
+    margin: 0 20px 10px;
+    padding: 10px 20px;
+    width: 100%;
+    @include flex($flow: column)
   }
-  &__box {
-    padding: 20px;
-    margin: 10px 20px;
-    height: calc(100% - 60px);
-    background: $alternative;
-    border-radius: $default-border-radius;
+
+  thead > tr {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px #fff solid;
+  }
+
+  &__table {
+    width: 80%;
+    border-collapse: collapse;
+  }
+
+  &__body {
+    width: 100%;
+  }
+
+  &__row {
+    &:nth-child(even) {
+      background: $secondary;
+    }
   }
 }
 
 .header-bar {
   height: 40px;
-  border-bottom: 1px white solid;
-  background: $alternative;
-  &__accountContainer {
+  width: 100%;
+  border-bottom: 1px #fff solid;
+  color: #fff;
+  background: $primary;
+
+  &__account-container {
     @include flex($justify-content: flex-end);
     height: 100%;
     padding: 0 10px;
   }
-  &__accountName {
+
+  &__account-name {
     padding-right: 10px;
   }
-  &__logoutButton {
+
+  &__logout-button {
     width: 26px;
     cursor: pointer;
-    & img{
+
+    img {
       width: 100%
     }
   }
