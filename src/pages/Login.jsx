@@ -25,9 +25,9 @@ export const Login = () => {
     <div className="login__wrapper">
       <div className="login__box">
         <p className="login__title">Sign in</p>
-        <TextInput label="Username" value={loginCredentials.username} onInput={handleInput} inputName="username"/>
+        <TextInput placeholder="Username" value={loginCredentials.username} onInput={handleInput} inputName="username"/>
         <TextInput
-          label="Password" value={loginCredentials.password} type="password" onInput={handleInput} inputName="password"
+          placeholder="Password" value={loginCredentials.password} type="password" onInput={handleInput} inputName="password"
         />
         <Button onClick={handleSubmit} label="Login"/>
       </div>
