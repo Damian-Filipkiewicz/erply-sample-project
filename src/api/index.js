@@ -28,9 +28,9 @@ const config = {
   },
 };
 
-export const callGetDataApi = async (endpoint) => {
+export const callGetDataApi = async (endpoint, filters = '') => {
   try {
-    const response = await axios.get(`${url}${endpoint}`, config);
+    const response = await axios.get(`${url}${endpoint}${filters}`, config);
     return response.data;
   } catch (e) {
     if (e.response.message === 'session key is expired') {

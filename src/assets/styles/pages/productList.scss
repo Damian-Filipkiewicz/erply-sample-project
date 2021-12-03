@@ -2,6 +2,8 @@
   color: $text-primary;
   height: 100vh;
 
+  height: 100vh;
+
   &__wrapper {
     margin: 0 20px 10px;
     padding: 10px 20px;
@@ -50,6 +52,7 @@
 
   &__logout-button {
     width: 26px;
+    cursor: pointer;
 
     img {
       width: 100%

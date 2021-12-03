@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { callGetDataApi } from '../api';
 import { EmptyListInfo } from './list/EmptyListInfo';
 import { ProductHeader } from './ProductHeader';
 import { ProductRow } from './ProductRow';
+import { Filters } from "./Filters";
+
 
 const columns = (selectedLanguage) => [{
   label: 'Name',
@@ -36,11 +38,18 @@ const columns = (selectedLanguage) => [{
 ];
 
 const ProductTable = () => {
-  const [productData, setProductData] = useState([]);
-
+  const [productData, setProductData] = React.useState([])
+  const [filters, setFilters] = React.useState({sort: {}, filter:[]})
   const selectedLanguage = localStorage.getItem('language') || 'en';
 
-  useEffect(() => {
+
+  React.useEffect(() => {
+    const rawFiltersForApi = Object.keys(filters).filter(key => Object.keys(filters[key]).length).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(filters[key]))}`).join('&')
+    const completeRequest = rawFiltersForApi ? `?${rawFiltersForApi}` : ''
+    callGetDataApi('product', completeRequest).then(response => setProductData(response))
+  }, [filters])
+
+  React.useEffect(() => {
     callGetDataApi('product').then(response => {
       console.warn(response);
       setProductData(response);
@@ -51,6 +60,7 @@ const ProductTable = () => {
 
   return (
     <div className="list__wrapper">
+      <Filters setFilters={setFilters}/>
       <table className="list__table">
         <ProductHeader columns={getColumns()}/>
         <tbody className="list__body">
