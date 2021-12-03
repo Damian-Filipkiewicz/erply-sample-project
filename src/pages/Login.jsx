@@ -2,8 +2,10 @@ import * as React from 'react';
 import { callApi } from '../api';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate()
   const [loginCredentials, setLoginCredentials] = React.useState({ username: '', password: '' });
 
   const handleInput = (value, input_name) => {
@@ -17,7 +19,7 @@ export const Login = () => {
       password: loginCredentials.password,
       request: 'verifyUser',
       sendContentType: 1,
-    });
+    }).then(response => response.status === 200 && navigate('/product-list'));
   };
 
 

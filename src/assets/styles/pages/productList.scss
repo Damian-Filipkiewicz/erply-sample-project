@@ -1,0 +1,30 @@
+.productList {
+  height: 100vh;
+  color: $text-primary;
+  &__box {
+    margin: 10px 20px;
+    height: calc(100% - 60px);
+    background: $alternative;
+    border-radius: $default-border-radius;
+  }
+}
+
+.headerBar {
+  height: 40px;
+  border-bottom: 1px white solid;
+  background: $alternative;
+  &__accountContainer {
+    @include flex($justify-content: flex-end);
+    height: 100%;
+    padding: 0 10px;
+    &__accountName {
+      padding-right: 10px;
+    }
+    &__logoutButton {
+      width: 26px;
+      &img{
+        width: 100%
+      }
+    }
+  }
+}
