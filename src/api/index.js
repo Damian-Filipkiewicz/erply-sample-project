@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const url = 'https://372.erply.com/api/';
+const url = 'https://372.erply.com/api';
 
 const qs = (params) => Object.keys(params)
-.map(key => `${key}=${params[key]}`)
-.join('&')
+.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+.join('&');
 
 export const callApi = async (action, data = {}) => {
   try {
