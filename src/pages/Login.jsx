@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { callApi } from '../api';
+import { callApi, verifyUser } from '../api';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ export const Login = () => {
   };
 
   const handleSubmit = async () => {
-    await callApi('', {
+    await verifyUser('', {
       clientCode: 372,
       username: loginCredentials.username,
       password: loginCredentials.password,
@@ -27,9 +27,9 @@ export const Login = () => {
     <div className="login__wrapper">
       <div className="login__box">
         <p className="login__title">Sign in</p>
-        <TextInput label="Username" value={loginCredentials.username} onInput={handleInput} inputName="username"/>
+        <TextInput placeholder="Username" value={loginCredentials.username} onInput={handleInput} inputName="username"/>
         <TextInput
-          label="Password" value={loginCredentials.password} type="password" onInput={handleInput} inputName="password"
+          placeholder="Password" value={loginCredentials.password} type="password" onInput={handleInput} inputName="password"
         />
         <Button onClick={handleSubmit} label="Login"/>
       </div>

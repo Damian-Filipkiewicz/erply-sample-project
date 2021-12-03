@@ -8,6 +8,8 @@ export const HeaderBar = () => {
   const navigate = useNavigate()
 
   const name = localStorage.getItem('username') || 'Unknown'
+  const setSelectedLanguage = lang => localStorage.setItem('language', lang);
+
 
   const handleLogout = () => {
     localStorage.removeItem('sessionKey')
@@ -19,6 +21,10 @@ export const HeaderBar = () => {
     <div className="header-bar__accountContainer">
       <div className="header-bar__accountName">{name}</div>
       <IconButton className="header-bar__logoutButton" onClick={handleLogout} img={logoutIcon}/>
+    </div>
+    <div>
+      <div onClick={() => setSelectedLanguage('en')}>en</div>
+      <div onClick={() => setSelectedLanguage('ru')}>ru</div>
     </div>
   </div>
 }
