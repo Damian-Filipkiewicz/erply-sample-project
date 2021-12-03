@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { callGetDataApi } from '../api';
+import { EmptyListInfo } from './list/EmptyListInfo';
 import { ProductHeader } from './ProductHeader';
 import { ProductRow } from './ProductRow';
 
 const columns = (selectedLanguage) => [{
   label: 'Name',
   getValue: (obj) => obj.name[selectedLanguage],
+  align: 'start',
 },
   {
     label: 'Code',
@@ -17,15 +19,15 @@ const columns = (selectedLanguage) => [{
   },
   {
     label: 'Width',
-    key: 'width'
+    key: 'width',
   },
   {
     label: 'Height',
-    key: 'height'
+    key: 'height',
   },
   {
     label: 'Type',
-    key: 'type'
+    key: 'type',
   },
   {
     label: 'Price',
@@ -47,10 +49,17 @@ const ProductTable = () => {
 
   const getColumns = React.useCallback(() => columns(selectedLanguage), [selectedLanguage]);
 
-  return <table className="productList__box">
-    <ProductHeader columns={getColumns()}/>
-    <tbody>{!!productData?.length && productData.map(product => <ProductRow product={product} key={product.id} columns={getColumns()}/>)}</tbody>
-  </table>;
+  return (
+    <div className="list__wrapper">
+      <table className="list__table">
+        <ProductHeader columns={getColumns()}/>
+        <tbody className="list__body">
+        {!productData?.length ? <EmptyListInfo/> : productData.map(product => <ProductRow
+          product={product} key={product.id} columns={getColumns()}
+        />)}
+        </tbody>
+      </table>
+    </div>);
 };
 
 export default ProductTable;

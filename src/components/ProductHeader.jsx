@@ -5,7 +5,7 @@ export const ProductHeader = ({ columns }) => {
   return (
     <thead>
     <tr>
-      {columns.map(column => (<th>{column.label}</th>))}
+      {columns.map(column => (<th style={{ 'text-align': column.align || 'center' }}>{column.label}</th>))}
     </tr>
     </thead>
   );

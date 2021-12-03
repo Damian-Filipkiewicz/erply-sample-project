@@ -3,7 +3,7 @@ import ProductTable from '../components/ProductTable';
 import { HeaderBar } from '../components/HeaderBar';
 
 export const ProductList = () => {
-  return <div className="productList">
+  return <div className="list">
     <HeaderBar/>
     <ProductTable/>
   </div>

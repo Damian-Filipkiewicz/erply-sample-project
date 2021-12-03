@@ -6,17 +6,13 @@ import logoutIcon from '../assets/images/logout.png'
 export const HeaderBar = () => {
 
   const name = localStorage.getItem('username') || 'Unknown'
-  const setSelectedLanguage = lang => localStorage.setItem('language', lang);
+  // const setSelectedLanguage = lang => localStorage.setItem('language', lang); // TODO - language change
 
 
-  return <div className="headerBar">
-    <div className="headerBar__accountContainer">
-      <div className="headerBar__accountContainer__accountName">{name}</div>
-      <IconButton className="headerBar__accountContainer__logoutButton" img={logoutIcon}/>
-    </div>
-    <div>
-      <div onClick={() => setSelectedLanguage('en')}>en</div>
-      <div onClick={() => setSelectedLanguage('ru')}>ru</div>
+  return <div className="header-bar">
+    <div className="header-bar__account-container">
+      <div className="header-bar__account-name">{name}</div>
+      <IconButton className="header-bar__logout-button" img={logoutIcon}/>
     </div>
   </div>
 }
