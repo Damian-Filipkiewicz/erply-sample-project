@@ -1,14 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import { callGetDataApi } from '../api/products';
+import React, { useEffect, useState } from 'react';
+import { callGetDataApi } from '../api';
+import { ProductHeader } from './ProductHeader';
+import { ProductRow } from './ProductRow';
+
+const columns = (selectedLanguage) => [{
+  label: 'Name',
+  getValue: (obj) => obj.name[selectedLanguage],
+},
+  {
+    label: 'Code',
+    key: 'code',
+  },
+  {
+    label: 'Displayed in webshop',
+    getValue: (obj) => obj.displayed_in_webshop ? 'Yes' : 'No',
+  },
+  {
+    label: 'Width',
+    key: 'width'
+  },
+  {
+    label: 'Height',
+    key: 'height'
+  },
+  {
+    label: 'Type',
+    key: 'type'
+  },
+  {
+    label: 'Price',
+    getValue: (obj) => `$${obj.price}`,
+  },
+];
 
 const ProductTable = () => {
-  const [productData, setProductData] = useState([])
+  const [productData, setProductData] = useState([]);
+
+  const selectedLanguage = localStorage.getItem('language') || 'en';
 
   useEffect(() => {
-    // callGetDataApi('product').then(response => setProductData(response))
-  },[])
+    callGetDataApi('product').then(response => {
+      console.warn(response);
+      setProductData(response);
+    });
+  }, []);
 
-  return <div className="productList__box">test</div>
-}
+  const getColumns = React.useCallback(() => columns(selectedLanguage), [selectedLanguage]);
 
-export default ProductTable
+  return <table className="productList__box">
+    <ProductHeader columns={getColumns()}/>
+    <tbody>{!!productData?.length && productData.map(product => <ProductRow product={product} key={product.id} columns={getColumns()}/>)}</tbody>
+  </table>;
+};
+
+export default ProductTable;
