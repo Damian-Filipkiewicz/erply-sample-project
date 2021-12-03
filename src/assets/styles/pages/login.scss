@@ -1,0 +1,20 @@
+.login {
+  &__wrapper {
+    @include flex($flow: column);
+    height: 100vh;
+  }
+
+  &__title {
+    font-size: x-large;
+    margin-bottom: 15px;
+  }
+
+  &__box {
+    border-radius: 15px;
+    background: $primary;
+    color: $text-primary;
+    padding: 30px;
+    @include flex($flow: column);
+    box-shadow: 8px 8px 15px 0 rgba($primary, .7);
+  }
+}
