@@ -1,6 +1,9 @@
 .productList {
   height: 100vh;
   color: $text-primary;
+  &__container {
+    height: calc(100% - 120px);
+  }
   &__box {
     padding: 20px;
     margin: 10px 20px;

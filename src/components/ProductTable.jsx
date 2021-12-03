@@ -44,7 +44,7 @@ const ProductTable = () => {
   useEffect(() => {
     const rawFiltersForApi = Object.keys(filters).filter(key => Object.keys(filters[key]).length).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(filters[key]))}`).join('&')
     const completeRequest = rawFiltersForApi ? `?${rawFiltersForApi}` : ''
-    callGetDataApi('product', completeRequest).then(response => console.log(response))
+    callGetDataApi('product', completeRequest).then(response => setProductData(response))
   }, [filters])
 
   useEffect(() => {
@@ -56,11 +56,13 @@ const ProductTable = () => {
 
   const getColumns = React.useCallback(() => columns(selectedLanguage), [selectedLanguage]);
 
-  return <table className="productList__box">
+  return <div className="productList__container">
     <Filters setFilters={setFilters}/>
+    <table className="productList__box">
     <ProductHeader columns={getColumns()}/>
     <tbody>{!!productData?.length && productData.map(product => <ProductRow product={product} key={product.id} columns={getColumns()}/>)}</tbody>
-  </table>;
+  </table>
+  </div>
 };
 
 export default ProductTable;

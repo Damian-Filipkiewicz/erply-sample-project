@@ -1,4 +1,8 @@
 .filters {
+  padding: 20px;
+  margin: 10px 20px;
+  background: $alternative;
+  border-radius: $default-border-radius;
   &__input {
     border-radius: 0;
     border: 1px solid $secondary;

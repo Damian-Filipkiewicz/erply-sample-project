@@ -23,7 +23,7 @@ export const Filters = ({setFilters}) => {
 
   return (
     <div className="filters">
-      <TextInput className="filters__input" inputName={'name.en'} onInput={handleFilterInput} />
+      <TextInput placeholder="Search for product" className="filters__input" inputName={'name.en'} onInput={handleFilterInput} />
     </div>
   )
 }

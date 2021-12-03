@@ -14,7 +14,7 @@ export const HeaderBar = () => {
   const handleLogout = () => {
     localStorage.removeItem('sessionKey')
     localStorage.removeItem('username')
-    navigate('/')
+    navigate('/login')
   }
 
   return <div className="header-bar">
