@@ -3,6 +3,7 @@
   margin: 10px 20px;
   background: $alternative;
   border-radius: $default-border-radius;
+  @include flex($justify-content: space-around);
   &__input {
     border-radius: 0;
     border: 1px solid $secondary;
@@ -11,6 +12,7 @@
     font-size: x-small;
     width: 200px;
     color: $input-search-color-active;
+    margin: auto;
     &:focus {
       border-color: $input-search-color-active
     }
