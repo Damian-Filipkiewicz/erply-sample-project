@@ -17,7 +17,6 @@
 
 button, input {
   border: 2px solid $text-primary;
-  border-radius: 8px;
   padding: 5px 8px;
   transition: .15s all ease-in-out;
 }
@@ -26,6 +25,7 @@ input {
   color: $text-primary;
   background: transparent;
   margin-bottom: 20px;
+
 
   &:focus {
     border-color: $focus;

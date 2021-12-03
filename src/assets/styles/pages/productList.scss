@@ -2,13 +2,11 @@
   color: $text-primary;
   height: 100vh;
 
-  height: 100vh;
-
   &__wrapper {
     margin: 0 20px 10px;
     padding: 10px 20px;
     width: 100%;
-    @include flex()
+    @include flex($flow: column)
   }
 
   thead > tr {

@@ -1,18 +1,11 @@
 .filters {
-  padding: 20px;
-  margin: 10px 20px;
-  background: $alternative;
-  border-radius: $default-border-radius;
-  &__input {
-    border-radius: 0;
-    border: 1px solid $secondary;
-    background-color: $input-search-color;
-    padding: 10px 10px;
-    font-size: x-small;
-    width: 200px;
-    color: $input-search-color-active;
-    &:focus {
-      border-color: $input-search-color-active
-    }
+  width: 80%;
+  margin: 20px 0;
+  background: $primary;
+  border-radius: 10px;
+
+
+  input {
+    align-self: flex-start;
   }
 }
