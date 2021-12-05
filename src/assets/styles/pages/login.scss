@@ -11,7 +11,7 @@
 
   &__box {
     border-radius: $default-border-radius;
-    background: $primary;
+    border: 1px solid #fff;
     color: $text-primary;
     padding: 30px;
     @include flex($flow: column);
