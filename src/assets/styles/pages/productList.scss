@@ -7,14 +7,23 @@
     margin: 0 20px 10px;
     padding: 10px 20px;
     width: 100%;
-    height: calc(100% - 150px);
-    //@include flex(center, flex-start, column)
+    height: calc(100% - 200px);
   }
 
-  .list__row {
-    height: 50px;
+  &__header, &__row {
+    width: 100%;
     display: grid;
-    grid-template-columns: 300px repeat(6, 1fr);
+    grid-template-columns: 300px repeat(7, 1fr);
+  }
+
+  &__header {
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  &__row {
+    height: 50px;
   }
 
   .ReactVirtualized__Table__headerRow {

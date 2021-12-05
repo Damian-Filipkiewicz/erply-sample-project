@@ -4,6 +4,7 @@ import 'react-virtualized/styles.css';
 import { callGetDataApi } from '../api';
 import { EmptyList } from './EmptyList';
 import { Filters } from './Filters';
+import { ProductHeader } from './ProductHeader';
 import { ProductRow } from './ProductRow';
 
 const columns = (selectedLanguage) => [{
@@ -34,6 +35,10 @@ const columns = (selectedLanguage) => [{
   {
     label: 'Price',
     getValue: (obj) => `$${obj.price}`,
+  },
+  {
+    label: 'Cost',
+    getValue: (obj) => `$${obj.cost}`,
   },
 ];
 
@@ -104,7 +109,7 @@ const ProductTable = () => {
     <div className="list__wrapper">
       <Filters setFilters={setFilters}/>
       {/*<table className="list__table">*/}
-      {/*  <ProductHeader columns={getColumns()}/>*/}
+        <ProductHeader columns={getColumns()}/>
       {/*  <tbody className="list__body">*/}
       {/*  {!productData?.length ? <EmptyListInfo/> : productData.map(product => <ProductRow*/}
       {/*    product={product} key={product.id} columns={getColumns()}*/}
