@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const auth_url = 'https://372.erply.com/api';
 const url = 'https://api-pim-eu10.erply.com/v1/';
 
@@ -21,20 +22,21 @@ export const verifyUser = async (action, data = {}) => {
     config.headers.sessionKey = response.data.records[0].sessionKey;
     return response;
   } catch (e) {
-    if ([401, 403].includes(e.response?.status)){} // TODO - redirect login
-      return { success: false, status: 401 };
+    if ([401, 403].includes(e.response?.status)) {
+      window.location.href = '/login';
+    }
+    return { success: false, status: 401 };
   }
 };
 
 
 export const callGetDataApi = async (endpoint, filters = '') => {
   try {
-    console.log(config)
     const response = await axios.get(`${url}${endpoint}${filters}`, config);
     return response.data;
   } catch (e) {
     if (e.response.data.message === 'session key is expired') {
-      window.location.href = '/login'
+      window.location.href = '/login';
     }
     console.error(e);
   }

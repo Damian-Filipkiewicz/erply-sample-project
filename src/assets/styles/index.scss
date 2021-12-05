@@ -50,3 +50,7 @@ button {
   height: 100%;
   @include flex()
 }
+
+button, img {
+  user-select: none;
+}

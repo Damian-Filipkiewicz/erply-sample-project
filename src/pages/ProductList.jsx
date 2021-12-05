@@ -1,10 +1,10 @@
 import * as React from 'react';
-import ProductTable from '../components/ProductTable';
+import ProductListWrapper from '../components/product-list';
 import { HeaderBar } from '../components/HeaderBar';
 
 export const ProductList = () => {
   return <div className="list">
     <HeaderBar/>
-    <ProductTable/>
+    <ProductListWrapper/>
   </div>
 }
