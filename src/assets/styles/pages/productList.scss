@@ -1,12 +1,14 @@
 .list {
   color: $text-primary;
   height: 100vh;
+  overflow: hidden;
 
   &__wrapper {
     margin: 0 20px 10px;
     padding: 10px 20px;
     width: 100%;
-    @include flex(center, flex-start, column)
+    height: calc(100% - 150px);
+    //@include flex(center, flex-start, column)
   }
 
   .list__row {

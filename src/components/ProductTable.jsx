@@ -1,14 +1,15 @@
 import React from 'react';
-import { Column, InfiniteLoader, Table, List } from 'react-virtualized';
-import 'react-virtualized/styles.css'; // only needs to be imported once
+import { AutoSizer, InfiniteLoader, List } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 import { callGetDataApi } from '../api';
+import { EmptyList } from './EmptyList';
+import { Filters } from './Filters';
 import { ProductRow } from './ProductRow';
 
 const columns = (selectedLanguage) => [{
   label: 'Name',
   getValue: (obj) => obj.name[selectedLanguage],
   align: 'start',
-  // key: 'name',
 },
   {
     label: 'Code',
@@ -17,7 +18,6 @@ const columns = (selectedLanguage) => [{
   {
     label: 'in webshop',
     getValue: (obj) => obj.displayed_in_webshop ? 'Yes' : 'No',
-    // key: 'displayed_in_webshop',
   },
   {
     label: 'Width',
@@ -34,44 +34,75 @@ const columns = (selectedLanguage) => [{
   {
     label: 'Price',
     getValue: (obj) => `$${obj.price}`,
-    // key: 'price',
   },
 ];
 
 const ProductTable = () => {
+  const initialQuery = 'product?skip=0&take=30';
+
   const [productData, setProductData] = React.useState([]);
   const [filters, setFilters] = React.useState({ sort: {}, filter: [] });
+  const [filterQuery, setFilterQuery] = React.useState(initialQuery);
+  const [limit, setLimit] = React.useState(0);
+  const [allDataLoaded, setAllDataLoaded] = React.useState(false);
+  const infiniteLoader = React.useRef(null);
+
   const selectedLanguage = localStorage.getItem('language') || 'en';
 
 
-  // React.useEffect(() => {
-  //   const rawFiltersForApi = Object.keys(filters).filter(key => Object.keys(filters[key]).length).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(filters[key]))}`).join('&');
-  //   const completeRequest = rawFiltersForApi ? `?${rawFiltersForApi}` : '';
-  //   callGetDataApi('product', completeRequest).then(response => setProductData(response));
-  // }, [filters]);
+  const initialLoad = (queryParams = '') => callGetDataApi(`product?skip=0&take=30${queryParams}`).then(response => setProductData(response));
+
+  React.useEffect(() => {
+    const rawFiltersForApi = Object.keys(filters).filter(key => Object.keys(filters[key]).length).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(filters[key]))}`).join('&');
+    const completeRequest = rawFiltersForApi ? `&${rawFiltersForApi}` : '';
+
+    if (!limit) {
+      setLimit(30);
+      return
+    }
+    setFilterQuery(completeRequest);
+    initialLoad(completeRequest);
+    console.warn('filters');
+
+
+    // console.warn(infiniteLoader.current);
+    // infiniteLoader.current.resetLoadMoreRowsCache(true)
+  }, [filters, limit]);
 
   // React.useEffect(() => {
-  //   callGetDataApi('product?skip=0&take=20').then(response => {
-  //     console.warn(response);
-  //     setProductData(response);
-  //   });
+  //   initialLoad();
   // }, []);
 
   const getColumns = React.useCallback(() => columns(selectedLanguage), [selectedLanguage]);
 
-  const isRowLoaded = React.useCallback(({ index }) => !!productData[index], [productData])
-  const loadMoreRows = ({ startIndex = 0, stopIndex = 20 }) => callGetDataApi(`product?skip=${startIndex}&take=${stopIndex}`).then(response => {
-    console.warn({  startIndex, stopIndex });
-    setProductData(response);
-  })
+  const isRowLoaded = React.useCallback(({ index }) => !!productData[index], [productData]);
+  const loadMoreRows = ({ startIndex = 0, stopIndex = 30 }) => {
+    if (allDataLoaded) return;
 
-  const rowRenderer = ({ key, index }) => <ProductRow key={key} product={productData[index]} columns={getColumns()}/>
 
-  const remoteRowCount = 150
+    console.warn({stopIndex,  startIndex, limit, t: !limit})
+
+    if (stopIndex && startIndex && stopIndex === startIndex) {
+      callGetDataApi(`product?skip=${startIndex}&take=${limit}${filterQuery}`).then(response => {
+        if (response.length < limit) {
+          setAllDataLoaded(true);
+        }
+
+        setProductData([...productData, ...response]);
+      });
+    }
+  };
+
+  const rowRenderer = ({ key, index, style }) => productData && productData[index] &&
+    <ProductRow index={index} key={key} product={productData[index]} style={style} columns={getColumns()}/>;
+
+  const remoteRowCount = React.useMemo(() => {
+    return productData?.length + 1 || limit;
+  }, [productData, limit]);
 
   return (
     <div className="list__wrapper">
-      {/*<Filters setFilters={setFilters}/>*/}
+      <Filters setFilters={setFilters}/>
       {/*<table className="list__table">*/}
       {/*  <ProductHeader columns={getColumns()}/>*/}
       {/*  <tbody className="list__body">*/}
@@ -81,6 +112,7 @@ const ProductTable = () => {
       {/*  </tbody>*/}
       {/*</table>*/}
       <InfiniteLoader
+        ref={infiniteLoader}
         isRowLoaded={isRowLoaded}
         loadMoreRows={loadMoreRows}
         rowCount={remoteRowCount}
@@ -110,15 +142,20 @@ const ProductTable = () => {
         {/*  />)}*/}
         {/*</Table>)}*/}
         {({ onRowsRendered, registerChild }) => (
-          <List
-            height={900}
-            onRowsRendered={onRowsRendered}
-            ref={registerChild}
-            rowHeight={50}
-            rowCount={remoteRowCount}
-            rowRenderer={rowRenderer}
-            width={1300}
-          />
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                height={height}
+                noRowsRenderer={() => <EmptyList/>}
+                onRowsRendered={onRowsRendered}
+                ref={registerChild}
+                rowHeight={50}
+                rowCount={remoteRowCount}
+                rowRenderer={rowRenderer}
+                width={width}
+              />
+            )}
+          </AutoSizer>
         )}
       </InfiniteLoader>
     </div>);

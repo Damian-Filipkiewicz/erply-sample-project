@@ -27,7 +27,10 @@ export const Filters = ({setFilters}) => {
       filterArray.splice(i, 0, "and")
     }
     setFilters(prev => ({...prev, filter: filterArray}))
+  }
 
+  const handleClear = () => {
+    setFilters({ sort: {}, filter: [] })
   }
 
   return (
@@ -37,6 +40,7 @@ export const Filters = ({setFilters}) => {
       <TextFilterInput type="number" placeholder="Price to" className="filters__input" inputName={'price'} filterType={'<='} filterSetFunction={setFilterPriceTo} onInput={handleFilterInput} />
       <TextFilterInput type="number" placeholder="Cost from" className="filters__input" inputName={'cost'} filterType={'>='} filterSetFunction={setFilterCostFrom} onInput={handleFilterInput} />
       <TextFilterInput type="number" placeholder="Cost to" className="filters__input" inputName={'cost'} filterType={'<='} filterSetFunction={setFilterCostTo} onInput={handleFilterInput} />
+      <Button onClick={handleClear} label="Clear"/>
       <Button onClick={handleSearch} label="Search"/>
     </div>
   )
