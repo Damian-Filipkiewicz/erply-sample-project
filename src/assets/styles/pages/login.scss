@@ -17,4 +17,9 @@
     @include flex($flow: column);
     box-shadow: 8px 8px 15px 0 rgba($primary, .7);
   }
+
+  &__error {
+    font-size: medium;
+    color: red;
+  }
 }
