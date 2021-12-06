@@ -8,17 +8,15 @@ import { Row } from './Row';
 const ProductList = ({ columns, limit, productData, setProductData, filterQuery }) => {
   const [allDataLoaded, setAllDataLoaded] = React.useState(false);
   const infiniteLoader = React.useRef(null);
-
   const isRowLoaded = React.useCallback(({ index }) => !!productData[index], [productData]);
+
   const loadMoreRows = ({ startIndex = 0, stopIndex = 30 }) => {
     if (allDataLoaded) return;
-
     if (stopIndex && startIndex && stopIndex === startIndex) {
       callGetDataApi(`product?skip=${startIndex}&take=${limit}${filterQuery}`).then(response => {
         if (response.length < limit) {
           setAllDataLoaded(true);
         }
-
         setProductData([...productData, ...response]);
       });
     }

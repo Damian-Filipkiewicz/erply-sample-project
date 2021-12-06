@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-
 import logoutIcon from '../assets/images/logout.png';
 import { IconButton } from "./IconButton";
 
@@ -8,7 +7,6 @@ export const HeaderBar = () => {
   const navigate = useNavigate();
 
   const name = localStorage.getItem('username') || 'Unknown';
-  // const setSelectedLanguage = lang => localStorage.setItem('language', lang); // TODO - language change
 
   const handleLogout = () => {
     localStorage.removeItem('sessionKey');
