@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { callApi, verifyUser } from '../api';
+import { verifyUser } from '../api';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
 import { useNavigate } from 'react-router-dom';
+import { clientCode } from '../config';
 
 export const Login = () => {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ export const Login = () => {
 
   const handleSubmit = async () => {
     await verifyUser('', {
-      clientCode: 372,
+      clientCode: clientCode,
       username: loginCredentials.username,
       password: loginCredentials.password,
       request: 'verifyUser',
