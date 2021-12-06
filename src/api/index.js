@@ -23,7 +23,7 @@ export const verifyUser = async (action, data = {}) => {
     return response;
   } catch (e) {
     if (e.message === 'Network error') {
-      return { success: false, status: 410 }
+      return { success: false, status: 410 };
     }
     if ([401, 403].includes(e.response?.status)) {
       window.location.href = '/login';

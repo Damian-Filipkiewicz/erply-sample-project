@@ -1,6 +1,6 @@
 export const ProductHeader = ({ columns, handleSorting, selected, desc = false }) => {
 
-  const getSortSign = (desc) => desc ? ' ▲' : ' ▼'
+  const getSortSign = (desc) => desc ? ' ▲' : ' ▼';
   return (
     <div className="list__header">
       {columns.map(column => (

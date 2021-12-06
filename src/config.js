@@ -1,1 +1,1 @@
-export const clientCode = '372'
+export const clientCode = '372';

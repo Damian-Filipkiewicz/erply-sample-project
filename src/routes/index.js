@@ -1,6 +1,6 @@
 const routes = {
   login: '/login',
-  productList: '/product-list'
-}
+  productList: '/product-list',
+};
 
-export default routes
+export default routes;

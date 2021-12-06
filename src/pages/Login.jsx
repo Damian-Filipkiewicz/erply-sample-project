@@ -1,17 +1,17 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { verifyUser } from '../api';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
-import { useNavigate } from 'react-router-dom';
 import { clientCode } from '../config';
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loginCredentials, setLoginCredentials] = React.useState({ username: '', password: '' });
-  const [errorLogin, setErrorLogin] = React.useState(false)
+  const [errorLogin, setErrorLogin] = React.useState(false);
   const handleInput = (value, input_name) => {
     setLoginCredentials({ ...loginCredentials, [input_name]: value });
-    setErrorLogin(false)
+    setErrorLogin(false);
   };
 
   const handleSubmit = async () => {
@@ -26,10 +26,10 @@ export const Login = () => {
       if (response.status && response.status === 200) {
         navigate('/product-list');
       } else {
-        setErrorLogin(true)
+        setErrorLogin(true);
       }
     })
-      .catch(e => console.error(e))
+      .catch(e => console.error(e));
   };
 
 
@@ -39,7 +39,8 @@ export const Login = () => {
         <p className="login__title">Sign in</p>
         <TextInput placeholder="Username" value={loginCredentials.username} onInput={handleInput} inputName="username"/>
         <TextInput
-          placeholder="Password" value={loginCredentials.password} type="password" onInput={handleInput} inputName="password"
+          placeholder="Password" value={loginCredentials.password} type="password" onInput={handleInput}
+          inputName="password"
         />
         {errorLogin && <p className="login__error">Your login and password are wrong</p>}
         <Button onClick={handleSubmit} label="Login"/>

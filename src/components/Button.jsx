@@ -1,3 +1,3 @@
 export const Button = ({ label, ...props }) => {
-  return <button {...props }>{label}</button>
-}
+  return <button {...props}>{label}</button>;
+};
