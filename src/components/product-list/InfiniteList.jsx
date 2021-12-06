@@ -37,12 +37,13 @@ const ProductList = ({ columns, limit, productData, setProductData, filterQuery 
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMoreRows}
       rowCount={remoteRowCount}
+      threshold={10}
     >
       {({ onRowsRendered, registerChild }) => (
         <AutoSizer>
           {({ height, width }) => (
             <List
-              height={height - 20}
+              height={height}
               noRowsRenderer={() => <EmptyList/>}
               onRowsRendered={onRowsRendered}
               ref={registerChild}
@@ -54,7 +55,8 @@ const ProductList = ({ columns, limit, productData, setProductData, filterQuery 
           )}
         </AutoSizer>
       )}
-    </InfiniteLoader>);
+    </InfiniteLoader>
+  );
 };
 
 export default ProductList;
