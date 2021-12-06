@@ -42,7 +42,7 @@ const ProductList = ({ columns, limit, productData, setProductData, filterQuery 
         <AutoSizer>
           {({ height, width }) => (
             <List
-              height={height}
+              height={height - 20}
               noRowsRenderer={() => <EmptyList/>}
               onRowsRendered={onRowsRendered}
               ref={registerChild}

@@ -9,34 +9,43 @@ const columns = (selectedLanguage) => [{
   label: 'Name',
   getValue: (obj) => obj.name[selectedLanguage],
   align: 'start',
+  keySort: 'name',
+  language: selectedLanguage,
 },
   {
     label: 'Code',
     key: 'code',
+    keySort: 'code'
   },
   {
     label: 'in webshop',
     getValue: (obj) => obj.displayed_in_webshop ? 'Yes' : 'No',
+    keySort: 'displayed_in_webshop'
   },
   {
     label: 'Width',
     key: 'width',
+    keySort: 'width'
   },
   {
     label: 'Height',
     key: 'height',
+    keySort: 'height'
   },
   {
     label: 'Type',
     key: 'type',
+    keySort: 'type'
   },
   {
     label: 'Price',
     getValue: (obj) => `$${obj.price}`,
+    keySort: 'price'
   },
   {
     label: 'Cost',
     getValue: (obj) => `$${obj.cost}`,
+    keySort: 'cost'
   },
 ];
 
@@ -61,15 +70,20 @@ const ListWrapper = () => {
       return;
     }
     setFilterQuery(completeRequest);
-    initialLoad(completeRequest);
+    initialLoad(completeRequest).catch(err => console.error(err));
   }, [filters, limit]);
 
   const getColumns = React.useCallback(() => columns(selectedLanguage), [selectedLanguage]);
 
+  const handleSorting = (selector, desc, language) => {
+    const setDesc = selector === filters.sort.selector ? !desc : false
+    setFilters(prev => ({...prev, sort: {selector, desc: setDesc, ...(language && {language})}}))
+  }
+
   return (
     <div className="list__wrapper">
       <Filters setFilters={setFilters}/>
-      <ProductHeader columns={getColumns()}/>
+      <ProductHeader columns={getColumns()} handleSorting={handleSorting} selected={filters.sort.selector} desc={filters.sort.desc}/>
       <InfiniteList
         columns={getColumns()} limit={limit} productData={productData} setProductData={setProductData} filterQuery={filterQuery}
       />
